@@ -106,7 +106,7 @@ Notes: ${form.message}`;
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
               <h3 className="font-semibold mb-2">What We Actually Do</h3>
               <p className="text-white/60 text-sm leading-relaxed">
-                We don’t offer cheap washes. Every detail is a full reset — deep interior
+                Every detail is a full reset — deep interior
                 restoration, paint decontamination, machine refinement and finishing work
                 designed to bring the vehicle back as close to factory-fresh condition as possible.
               </p>
