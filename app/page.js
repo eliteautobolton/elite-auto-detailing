@@ -50,7 +50,7 @@ Notes: ${form.message}`;
           </h1>
 
           <p className="text-white/60 mt-3 text-lg">
-            Premium mobile detailing • Bolton & surrounding areas
+            Premium Detailing • Bolton & surrounding areas
           </p>
 
           <div className="mt-6 inline-flex gap-2 text-sm text-white/70">
@@ -77,16 +77,16 @@ Notes: ${form.message}`;
 
               <div className="space-y-3 text-white/80">
                 <div className="flex justify-between">
-                  <span>Mini Valet</span><span>from £60</span>
-                </div>
-                <div className="flex justify-between">
                   <span>Full Valet</span><span>from £120</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Interior Deep Clean</span><span>from £140</span>
+                  <span>Machine Polish</span><span>from £140</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Ceramic Coating</span><span>from £250</span>
+                  <span>Paint Correction</span><span>from £240</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Ceramic Coating</span><span>from £100</span>
                 </div>
               </div>
 
