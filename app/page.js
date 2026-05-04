@@ -52,6 +52,10 @@ Notes: ${form.message}`;
             Premium Detailing • Bolton & surrounding areas
           </p>
 
+          <p className="text-white/40 text-sm mt-2">
+            5+ years experience • Paint-safe techniques • Professional-grade products only
+          </p>
+
           {/* Trust badges */}
           <div className="mt-6 flex flex-wrap justify-center gap-2 text-sm text-white/70">
             <span className="px-3 py-1 rounded-full bg-white/10 border border-white/10">
@@ -101,28 +105,33 @@ Notes: ${form.message}`;
               <p className="text-xs text-white/40 mt-4">
                 Final price depends on vehicle size & condition
               </p>
+
+              <p className="text-xs text-white/40 mt-2">
+                Most bookings fall between £120–£180 depending on condition
+              </p>
             </div>
 
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
               <h3 className="font-semibold mb-2">What We Actually Do</h3>
               <p className="text-white/60 text-sm leading-relaxed">
-                Every detail is a full reset — deep interior
-                restoration, paint decontamination, machine refinement and finishing work
-                designed to bring the vehicle back as close to factory-fresh condition as possible.
+                Every detail is a full reset — deep interior restoration, paint decontamination,
+                machine refinement and finishing work designed to bring the vehicle back as close
+                to factory-fresh condition as possible.
               </p>
             </div>
 
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
               <h3 className="font-semibold mb-2">Important</h3>
               <p className="text-white/60 text-sm">
-                This is a premium detailing service built around quality and time. Availability is limited
+                This is a premium detailing service focused on quality, precision, and time.
+                We operate limited daily slots to maintain standards.
               </p>
             </div>
 
           </div>
 
           {/* RIGHT - FORM */}
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl space-y-4">
+          <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl space-y-4 sticky top-6">
 
             <input
               name="name"
@@ -182,7 +191,7 @@ Notes: ${form.message}`;
               onClick={handleSubmit}
               className="w-full py-4 rounded-2xl bg-white text-black font-semibold hover:scale-[1.02] active:scale-[0.99] transition"
             >
-              Check Availability via WhatsApp
+              Check Availability & Secure a Slot
             </button>
 
             <p className="text-center text-xs text-white/40">
