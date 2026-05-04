@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Page() {
+  const canvasRef = useRef(null);
+
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -23,7 +25,6 @@ export default function Page() {
   const toggleService = (service) => {
     setForm((prev) => {
       const exists = prev.services.includes(service);
-
       return {
         ...prev,
         services: exists
@@ -54,52 +55,67 @@ export default function Page() {
     );
   };
 
+  // 🌧️ RAIN ANIMATION
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const drops = Array.from({ length: 120 }).map(() => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      len: Math.random() * 20 + 10,
+      speed: Math.random() * 4 + 2,
+      opacity: Math.random() * 0.15 + 0.05,
+    }));
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let d of drops) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(59,130,246,${d.opacity})`;
+        ctx.lineWidth = 1;
+
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x, d.y + d.len);
+        ctx.stroke();
+
+        d.y += d.speed;
+
+        if (d.y > height) {
+          d.y = -20;
+          d.x = Math.random() * width;
+        }
+      }
+
+      requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    const handleResize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
 
-      {/* 🌊 LIQUID BACKGROUND LAYER */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* 🌧️ RAIN CANVAS */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 opacity-60"
+      />
 
-        {/* main blue blobs */}
-        <div className="absolute w-[700px] h-[700px] bg-blue-500/20 rounded-full blur-[180px] animate-blob1" />
-        <div className="absolute w-[600px] h-[600px] bg-blue-400/20 rounded-full blur-[160px] animate-blob2" />
-        <div className="absolute w-[500px] h-[500px] bg-white/5 rounded-full blur-[140px] animate-blob3" />
-
-        {/* subtle noise overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.05),transparent_40%),radial-gradient(circle_at_80%_80%,rgba(59,130,246,0.08),transparent_45%)]" />
-      </div>
-
-      {/* ANIMATIONS */}
-      <style jsx>{`
-        @keyframes blob1 {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(120px, -80px) scale(1.1); }
-          66% { transform: translate(-80px, 120px) scale(0.95); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-
-        @keyframes blob2 {
-          0% { transform: translate(0px, 0px) scale(1); }
-          50% { transform: translate(-150px, 100px) scale(1.15); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-
-        @keyframes blob3 {
-          0% { transform: translate(0px, 0px); }
-          50% { transform: translate(100px, -120px); }
-          100% { transform: translate(0px, 0px); }
-        }
-
-        .animate-blob1 {
-          animation: blob1 18s ease-in-out infinite;
-        }
-        .animate-blob2 {
-          animation: blob2 22s ease-in-out infinite;
-        }
-        .animate-blob3 {
-          animation: blob3 26s ease-in-out infinite;
-        }
-      `}</style>
+      {/* subtle vignette */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,black_100%)]" />
 
       {/* CONTENT */}
       <div className="relative max-w-6xl mx-auto px-6 py-14">
@@ -115,19 +131,8 @@ export default function Page() {
           </p>
 
           <p className="text-white/40 text-sm mt-2">
-            5+ years experience • Paint-safe techniques • Professional-grade systems only
+            5+ years experience • Paint-safe techniques • Professional-grade systems
           </p>
-
-          <div className="mt-6 flex flex-wrap justify-center gap-2 text-sm text-white/70">
-            {["Mobile / Collection Service", "Fully Insured", "5★ Finish Standard", "Limited Daily Slots"].map((t) => (
-              <span
-                key={t}
-                className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
 
           <p className="mt-5 text-sm text-blue-300/70">
             ⚡ Live availability — limited daily bookings
@@ -141,7 +146,7 @@ export default function Page() {
           <div className="space-y-6">
 
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl">
-              <h2 className="text-xl font-semibold mb-4">Premium Service Pricing</h2>
+              <h2 className="text-xl font-semibold mb-4">Premium Pricing</h2>
 
               <div className="space-y-3 text-white/80">
                 <div className="flex justify-between">
