@@ -7,23 +7,46 @@ export default function Page() {
     name: "",
     phone: "",
     car: "",
-    service: "Full Valet",
+    services: [],
     date: "",
+    time: "",
     message: "",
   });
+
+  const serviceOptions = [
+    "Full Valet",
+    "Machine Polish",
+    "Paint Correction",
+    "Ceramic Coating",
+  ];
+
+  const toggleService = (service) => {
+    setForm((prev) => {
+      const exists = prev.services.includes(service);
+
+      return {
+        ...prev,
+        services: exists
+          ? prev.services.filter((s) => s !== service)
+          : [...prev.services, service],
+      };
+    });
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = () => {
-    const msg = `NEW ELITE AUTO BOOKING:%0A
-Name: ${form.name}%0A
-Phone: ${form.phone}%0A
-Car: ${form.car}%0A
-Service: ${form.service}%0A
-Date: ${form.date}%0A
-Notes: ${form.message}`;
+    const msg =
+      `NEW ELITE AUTO BOOKING\n` +
+      `Name: ${form.name}\n` +
+      `Phone: ${form.phone}\n` +
+      `Car: ${form.car}\n` +
+      `Services: ${form.services.join(", ")}\n` +
+      `Date: ${form.date}\n` +
+      `Time: ${form.time}\n` +
+      `Notes: ${form.message}`;
 
     window.open(
       `https://wa.me/447988770864?text=${encodeURIComponent(msg)}`,
@@ -34,7 +57,7 @@ Notes: ${form.message}`;
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
 
-      {/* Animated premium blue glow */}
+      {/* Background glow */}
       <div className="absolute inset-0">
         <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[650px] h-[650px] bg-blue-500/10 blur-[180px] rounded-full animate-pulse" />
         <div className="absolute bottom-[-250px] right-[-120px] w-[550px] h-[550px] bg-blue-400/10 blur-[160px] rounded-full animate-pulse" />
@@ -62,7 +85,7 @@ Notes: ${form.message}`;
               "Mobile / Collection Service",
               "Fully Insured",
               "5★ Finish Standard",
-              "Limited Daily Slots"
+              "Limited Daily Slots",
             ].map((t) => (
               <span
                 key={t}
@@ -73,9 +96,8 @@ Notes: ${form.message}`;
             ))}
           </div>
 
-          {/* urgency */}
           <p className="mt-5 text-sm text-blue-300/70">
-            ⚡ Live availability — bookings allocated on a first-come basis each day
+            ⚡ Live availability — limited daily bookings
           </p>
         </div>
 
@@ -116,8 +138,7 @@ Notes: ${form.message}`;
               <h3 className="font-semibold mb-2">What We Do</h3>
               <p className="text-white/60 text-sm leading-relaxed">
                 Every detail is a full reset — deep interior restoration, paint decontamination,
-                machine polishing and finishing work designed to restore a near factory-fresh condition
-                using professional-grade detailing systems.
+                machine polishing and finishing work designed to restore a near factory-fresh condition.
               </p>
             </div>
 
@@ -125,7 +146,7 @@ Notes: ${form.message}`;
               <h3 className="font-semibold mb-2">Important</h3>
               <p className="text-white/60 text-sm">
                 This is a premium detailing service focused on quality, precision and time.
-                We operate limited daily slots to maintain standards.
+                Limited daily availability to maintain standards.
               </p>
             </div>
 
@@ -155,15 +176,15 @@ Notes: ${form.message}`;
               className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-blue-500/30"
             />
 
-            {/* service selection */}
+            {/* MULTI SERVICE SELECT */}
             <div className="grid grid-cols-2 gap-3 text-sm">
-              {["Full Valet", "Machine Polish", "Paint Correction", "Ceramic Coating"].map((s) => (
+              {serviceOptions.map((s) => (
                 <button
                   key={s}
-                  onClick={() => setForm({ ...form, service: s })}
+                  onClick={() => toggleService(s)}
                   className={`py-3 rounded-2xl border transition ${
-                    form.service === s
-                      ? "bg-blue-500 text-white"
+                    form.services.includes(s)
+                      ? "bg-blue-500 text-white border-blue-400"
                       : "bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-white/20"
                   }`}
                 >
@@ -172,12 +193,22 @@ Notes: ${form.message}`;
               ))}
             </div>
 
-            <input
-              type="date"
-              name="date"
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
-            />
+            {/* DATE + TIME */}
+            <div className="grid grid-cols-2 gap-3">
+              <input
+                type="date"
+                name="date"
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
+              />
+
+              <input
+                type="time"
+                name="time"
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
+              />
+            </div>
 
             <textarea
               name="message"
@@ -187,7 +218,6 @@ Notes: ${form.message}`;
               className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
             />
 
-            {/* CTA */}
             <button
               onClick={handleSubmit}
               className="w-full py-4 rounded-2xl bg-white text-black font-semibold hover:scale-[1.02] active:scale-[0.99] transition shadow-[0_0_40px_rgba(59,130,246,0.25)]"
@@ -196,7 +226,7 @@ Notes: ${form.message}`;
             </button>
 
             <p className="text-center text-xs text-white/40">
-              Response typically within 1 hour • Limited daily availability
+              Response usually within 1 hour • Limited daily availability
             </p>
 
           </div>
