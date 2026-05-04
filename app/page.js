@@ -139,7 +139,7 @@ Notes: ${form.message}`;
 
             {/* Service selector */}
             <div className="grid grid-cols-2 gap-3 text-sm">
-              {["Mini Valet", "Full Valet", "Deep Clean", "Ceramic"].map((s) => (
+              {["Full Valet", "Machine Polish", "Paint Correction", "Ceramic Coating"].map((s) => (
                 <button
                   key={s}
                   onClick={() => setForm({ ...form, service: s })}
