@@ -86,7 +86,7 @@ Notes: ${form.message}`;
                   <span>Paint Correction</span><span>from £240</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Ceramic Coating</span><span>from £100</span>
+                  <span>Ceramic Coating</span><span>from £250</span>
                 </div>
               </div>
 
