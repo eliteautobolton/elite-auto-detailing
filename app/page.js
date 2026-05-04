@@ -115,8 +115,7 @@ Notes: ${form.message}`;
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
               <h3 className="font-semibold mb-2">Important</h3>
               <p className="text-white/60 text-sm">
-                This is a premium service. If you're looking for quick £20–£30 washes,
-                this service is not for you.
+                This is a premium detailing service built around quality and time. Availability is limited
               </p>
             </div>
 
