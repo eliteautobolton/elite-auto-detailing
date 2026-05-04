@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 export default function Page() {
-  const canvasRef = useRef(null);
-
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -25,6 +23,7 @@ export default function Page() {
   const toggleService = (service) => {
     setForm((prev) => {
       const exists = prev.services.includes(service);
+
       return {
         ...prev,
         services: exists
@@ -55,69 +54,15 @@ export default function Page() {
     );
   };
 
-  // 🌧️ RAIN ANIMATION
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
-
-    const drops = Array.from({ length: 120 }).map(() => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      len: Math.random() * 20 + 10,
-      speed: Math.random() * 4 + 2,
-      opacity: Math.random() * 0.15 + 0.05,
-    }));
-
-    const draw = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      for (let d of drops) {
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(59,130,246,${d.opacity})`;
-        ctx.lineWidth = 1;
-
-        ctx.moveTo(d.x, d.y);
-        ctx.lineTo(d.x, d.y + d.len);
-        ctx.stroke();
-
-        d.y += d.speed;
-
-        if (d.y > height) {
-          d.y = -20;
-          d.x = Math.random() * width;
-        }
-      }
-
-      requestAnimationFrame(draw);
-    };
-
-    draw();
-
-    const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
 
-      {/* 🌧️ RAIN CANVAS */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 opacity-60"
-      />
+      {/* Background glow */}
+      <div className="absolute inset-0">
+        <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[650px] h-[650px] bg-blue-500/10 blur-[180px] rounded-full animate-pulse" />
+        <div className="absolute bottom-[-250px] right-[-120px] w-[550px] h-[550px] bg-blue-400/10 blur-[160px] rounded-full animate-pulse" />
+      </div>
 
-      {/* subtle vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,black_100%)]" />
-
-      {/* CONTENT */}
       <div className="relative max-w-6xl mx-auto px-6 py-14">
 
         {/* HERO */}
@@ -131,8 +76,25 @@ export default function Page() {
           </p>
 
           <p className="text-white/40 text-sm mt-2">
-            5+ years experience • Paint-safe techniques • Professional-grade systems
+            5+ years experience • Paint-safe techniques • Professional-grade systems only
           </p>
+
+          {/* badges */}
+          <div className="mt-6 flex flex-wrap justify-center gap-2 text-sm text-white/70">
+            {[
+              "Mobile / Collection Service",
+              "Fully Insured",
+              "5★ Finish Standard",
+              "Limited Daily Slots",
+            ].map((t) => (
+              <span
+                key={t}
+                className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
 
           <p className="mt-5 text-sm text-blue-300/70">
             ⚡ Live availability — limited daily bookings
@@ -146,7 +108,7 @@ export default function Page() {
           <div className="space-y-6">
 
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl">
-              <h2 className="text-xl font-semibold mb-4">Premium Pricing</h2>
+              <h2 className="text-xl font-semibold mb-4">Premium Service Pricing</h2>
 
               <div className="space-y-3 text-white/80">
                 <div className="flex justify-between">
@@ -163,8 +125,28 @@ export default function Page() {
                 </div>
               </div>
 
+              <p className="text-xs text-white/40 mt-4">
+                Pricing varies depending on vehicle size and condition
+              </p>
+
               <p className="text-xs text-blue-300/60 mt-2">
                 Most bookings fall between £120–£180
+              </p>
+            </div>
+
+            <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
+              <h3 className="font-semibold mb-2">What We Do</h3>
+              <p className="text-white/60 text-sm leading-relaxed">
+                Every detail is a full reset — deep interior restoration, paint decontamination,
+                machine polishing and finishing work designed to restore a near factory-fresh condition.
+              </p>
+            </div>
+
+            <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
+              <h3 className="font-semibold mb-2">Important</h3>
+              <p className="text-white/60 text-sm">
+                This is a premium detailing service focused on quality, precision and time.
+                Limited daily availability to maintain standards.
               </p>
             </div>
 
@@ -177,24 +159,24 @@ export default function Page() {
               name="name"
               placeholder="Full name"
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
+              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-blue-500/30"
             />
 
             <input
               name="phone"
               placeholder="Phone number"
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
+              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-blue-500/30"
             />
 
             <input
               name="car"
-              placeholder="Vehicle"
+              placeholder="Vehicle (e.g. BMW 330d)"
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
+              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-blue-500/30"
             />
 
-            {/* services */}
+            {/* MULTI SERVICE SELECT */}
             <div className="grid grid-cols-2 gap-3 text-sm">
               {serviceOptions.map((s) => (
                 <button
@@ -203,7 +185,7 @@ export default function Page() {
                   className={`py-3 rounded-2xl border transition ${
                     form.services.includes(s)
                       ? "bg-blue-500 text-white border-blue-400"
-                      : "bg-white/5 border-white/10 text-white/80"
+                      : "bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-white/20"
                   }`}
                 >
                   {s}
@@ -211,20 +193,20 @@ export default function Page() {
               ))}
             </div>
 
-            {/* date + time */}
+            {/* DATE + TIME */}
             <div className="grid grid-cols-2 gap-3">
               <input
                 type="date"
                 name="date"
                 onChange={handleChange}
-                className="px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-blue-500/30"
+                className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
               />
 
               <input
                 type="time"
                 name="time"
                 onChange={handleChange}
-                className="px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-blue-500/30"
+                className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
               />
             </div>
 
@@ -233,18 +215,18 @@ export default function Page() {
               placeholder="Anything we should know?"
               rows="3"
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-blue-500/30"
+              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
             />
 
             <button
               onClick={handleSubmit}
-              className="w-full py-4 rounded-2xl bg-white text-black font-semibold hover:scale-[1.02] transition shadow-[0_0_40px_rgba(59,130,246,0.25)]"
+              className="w-full py-4 rounded-2xl bg-white text-black font-semibold hover:scale-[1.02] active:scale-[0.99] transition shadow-[0_0_40px_rgba(59,130,246,0.25)]"
             >
               Check Availability & Secure a Slot
             </button>
 
             <p className="text-center text-xs text-white/40">
-              Response within 1 hour • Limited availability
+              Response usually within 1 hour • Limited daily availability
             </p>
 
           </div>
