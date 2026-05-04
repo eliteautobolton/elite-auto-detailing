@@ -23,7 +23,7 @@ export default function Page() {
     e.preventDefault();
 
     const msg = `New Booking Request:%0AName: ${form.name}%0APhone: ${form.phone}%0ACar: ${form.car}%0AService: ${form.service}%0ADate: ${form.date}%0ANotes: ${form.message}`;
-    window.open(`https://wa.me/44XXXXXXXXXX?text=${msg}`, "_blank");
+    window.open(`https://wa.me/447988770864?text=${msg}`, "_blank");
 
     setSubmitted(true);
   };
