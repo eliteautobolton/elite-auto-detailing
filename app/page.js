@@ -57,12 +57,51 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
 
-      {/* Background glow */}
-      <div className="absolute inset-0">
-        <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[650px] h-[650px] bg-blue-500/10 blur-[180px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[-250px] right-[-120px] w-[550px] h-[550px] bg-blue-400/10 blur-[160px] rounded-full animate-pulse" />
+      {/* 🌊 LIQUID BACKGROUND LAYER */}
+      <div className="absolute inset-0 overflow-hidden">
+
+        {/* main blue blobs */}
+        <div className="absolute w-[700px] h-[700px] bg-blue-500/20 rounded-full blur-[180px] animate-blob1" />
+        <div className="absolute w-[600px] h-[600px] bg-blue-400/20 rounded-full blur-[160px] animate-blob2" />
+        <div className="absolute w-[500px] h-[500px] bg-white/5 rounded-full blur-[140px] animate-blob3" />
+
+        {/* subtle noise overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.05),transparent_40%),radial-gradient(circle_at_80%_80%,rgba(59,130,246,0.08),transparent_45%)]" />
       </div>
 
+      {/* ANIMATIONS */}
+      <style jsx>{`
+        @keyframes blob1 {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(120px, -80px) scale(1.1); }
+          66% { transform: translate(-80px, 120px) scale(0.95); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+
+        @keyframes blob2 {
+          0% { transform: translate(0px, 0px) scale(1); }
+          50% { transform: translate(-150px, 100px) scale(1.15); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+
+        @keyframes blob3 {
+          0% { transform: translate(0px, 0px); }
+          50% { transform: translate(100px, -120px); }
+          100% { transform: translate(0px, 0px); }
+        }
+
+        .animate-blob1 {
+          animation: blob1 18s ease-in-out infinite;
+        }
+        .animate-blob2 {
+          animation: blob2 22s ease-in-out infinite;
+        }
+        .animate-blob3 {
+          animation: blob3 26s ease-in-out infinite;
+        }
+      `}</style>
+
+      {/* CONTENT */}
       <div className="relative max-w-6xl mx-auto px-6 py-14">
 
         {/* HERO */}
@@ -79,14 +118,8 @@ export default function Page() {
             5+ years experience • Paint-safe techniques • Professional-grade systems only
           </p>
 
-          {/* badges */}
           <div className="mt-6 flex flex-wrap justify-center gap-2 text-sm text-white/70">
-            {[
-              "Mobile / Collection Service",
-              "Fully Insured",
-              "5★ Finish Standard",
-              "Limited Daily Slots",
-            ].map((t) => (
+            {["Mobile / Collection Service", "Fully Insured", "5★ Finish Standard", "Limited Daily Slots"].map((t) => (
               <span
                 key={t}
                 className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20"
@@ -125,28 +158,8 @@ export default function Page() {
                 </div>
               </div>
 
-              <p className="text-xs text-white/40 mt-4">
-                Pricing varies depending on vehicle size and condition
-              </p>
-
               <p className="text-xs text-blue-300/60 mt-2">
                 Most bookings fall between £120–£180
-              </p>
-            </div>
-
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
-              <h3 className="font-semibold mb-2">What We Do</h3>
-              <p className="text-white/60 text-sm leading-relaxed">
-                Every detail is a full reset — deep interior restoration, paint decontamination,
-                machine polishing and finishing work designed to restore a near factory-fresh condition.
-              </p>
-            </div>
-
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
-              <h3 className="font-semibold mb-2">Important</h3>
-              <p className="text-white/60 text-sm">
-                This is a premium detailing service focused on quality, precision and time.
-                Limited daily availability to maintain standards.
               </p>
             </div>
 
@@ -159,24 +172,24 @@ export default function Page() {
               name="name"
               placeholder="Full name"
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-blue-500/30"
+              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
             />
 
             <input
               name="phone"
               placeholder="Phone number"
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-blue-500/30"
+              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
             />
 
             <input
               name="car"
-              placeholder="Vehicle (e.g. BMW 330d)"
+              placeholder="Vehicle"
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-blue-500/30"
+              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
             />
 
-            {/* MULTI SERVICE SELECT */}
+            {/* services */}
             <div className="grid grid-cols-2 gap-3 text-sm">
               {serviceOptions.map((s) => (
                 <button
@@ -185,7 +198,7 @@ export default function Page() {
                   className={`py-3 rounded-2xl border transition ${
                     form.services.includes(s)
                       ? "bg-blue-500 text-white border-blue-400"
-                      : "bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-white/20"
+                      : "bg-white/5 border-white/10 text-white/80"
                   }`}
                 >
                   {s}
@@ -193,20 +206,20 @@ export default function Page() {
               ))}
             </div>
 
-            {/* DATE + TIME */}
+            {/* date + time */}
             <div className="grid grid-cols-2 gap-3">
               <input
                 type="date"
                 name="date"
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
+                className="px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-blue-500/30"
               />
 
               <input
                 type="time"
                 name="time"
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
+                className="px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-blue-500/30"
               />
             </div>
 
@@ -215,18 +228,18 @@ export default function Page() {
               placeholder="Anything we should know?"
               rows="3"
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-blue-500/30"
+              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:ring-blue-500/30"
             />
 
             <button
               onClick={handleSubmit}
-              className="w-full py-4 rounded-2xl bg-white text-black font-semibold hover:scale-[1.02] active:scale-[0.99] transition shadow-[0_0_40px_rgba(59,130,246,0.25)]"
+              className="w-full py-4 rounded-2xl bg-white text-black font-semibold hover:scale-[1.02] transition shadow-[0_0_40px_rgba(59,130,246,0.25)]"
             >
               Check Availability & Secure a Slot
             </button>
 
             <p className="text-center text-xs text-white/40">
-              Response usually within 1 hour • Limited daily availability
+              Response within 1 hour • Limited availability
             </p>
 
           </div>
