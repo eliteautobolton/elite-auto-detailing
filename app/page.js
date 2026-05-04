@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function Page() {
   const [form, setForm] = useState({
@@ -12,6 +13,12 @@ export default function Page() {
     time: "",
     message: "",
   });
+
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
 
   const serviceOptions = [
     "Full Valet",
@@ -66,12 +73,31 @@ export default function Page() {
       <div className="relative max-w-6xl mx-auto px-6 py-14">
 
         {/* HERO */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-semibold tracking-tight">
-            Elite Auto Detailing
-          </h1>
+        <div className="text-center mb-10">
 
-          <p className="text-white/60 mt-4 text-lg">
+          {/* LOGO */}
+          <div
+            className={`transition-all duration-1000 ${
+              loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
+            <div className="relative mx-auto w-[280px] md:w-[380px]">
+
+              {/* glow behind logo */}
+              <div className="absolute inset-0 blur-3xl bg-white/10 rounded-full scale-110" />
+
+              <Image
+                src="/logo.png"
+                alt="Elite Auto Detailing Logo"
+                width={400}
+                height={150}
+                priority
+                className="relative object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.15)]"
+              />
+            </div>
+          </div>
+
+          <p className="text-white/60 mt-6 text-lg">
             Premium Automotive Detailing • Bolton & surrounding areas
           </p>
 
