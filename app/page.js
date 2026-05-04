@@ -2,80 +2,125 @@
 
 import { useState } from "react";
 
-export default function Page() { const [form, setForm] = useState({ name: "", phone: "", car: "", service: "Full Valet", date: "", message: "", });
+export default function Page() {
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    car: "",
+    service: "Full Valet",
+    date: "",
+    message: "",
+  });
 
-const [submitted, setSubmitted] = useState(false);
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-const handleChange = (e) => { setForm({ ...form, [e.target.name]: e.target.value }); };
+  const handleSubmit = () => {
+    const msg = `New Booking:%0A
+Name: ${form.name}%0A
+Phone: ${form.phone}%0A
+Car: ${form.car}%0A
+Service: ${form.service}%0A
+Date: ${form.date}%0A
+Message: ${form.message}`;
 
-const handleSubmit = (e) => { e.preventDefault();
+    window.open(
+      `https://wa.me/447988770864?text=${encodeURIComponent(msg)}`,
+      "_blank"
+    );
+  };
 
-const msg = `New Booking:%0AName: ${form.name}%0APhone: ${form.phone}%0ACar: ${form.car}%0AService: ${form.service}%0ADate: ${form.date}%0ANotes: ${form.message}`;
-window.open(`https://wa.me/447988770864?text=${msg}`, "_blank");
+  return (
+    <div className="min-h-screen bg-black text-white flex items-center justify-center p-6">
 
-setSubmitted(true);
+      {/* Background glow */}
+      <div className="absolute inset-0 bg-gradient-to-b from-neutral-900 via-black to-black" />
 
-};
+      {/* Card */}
+      <div className="relative w-full max-w-xl">
 
-return ( <div className="min-h-screen bg-white text-black font-sans"> {/* HERO */} <section className="px-6 py-16 text-center max-w-5xl mx-auto"> <h1 className="text-5xl font-semibold tracking-tight"> Elite Auto Detailing </h1> <p className="mt-4 text-lg text-gray-500"> Ceramic Coating • Paint Protection • Car Detailing Bolton </p> <p className="mt-6 text-gray-600 max-w-xl mx-auto"> Premium vehicle detailing designed to restore, enhance, and protect your car with a factory-fresh finish. </p>
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-semibold tracking-tight">
+            Elite Auto Detailing
+          </h1>
+          <p className="text-white/50 mt-2">
+            Premium mobile detailing • Stockport & surrounding areas
+          </p>
+        </div>
 
-<a
-      href="#booking"
-      className="inline-block mt-8 px-6 py-3 bg-black text-white rounded-full text-sm font-medium hover:opacity-90 transition"
-    >
-      Book Now
-    </a>
-  </section>
+        {/* Glass Card */}
+        <div className="backdrop-blur-2xl bg-white/5 border border-white/10 rounded-3xl shadow-2xl p-6 space-y-4">
 
-  {/* SERVICES */}
-  <section className="px-6 py-12 max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
-    {[
-      { title: "Full Valet", desc: "Deep interior + exterior reset", price: "From £100" },
-      { title: "Paint Correction", desc: "Remove swirls & restore gloss", price: "From £180" },
-      { title: "Ceramic Coating", desc: "Long-term protection & shine", price: "From £250" },
-    ].map((s, i) => (
-      <div key={i} className="p-6 rounded-2xl border border-gray-200 hover:shadow-lg transition bg-white">
-        <h3 className="text-xl font-medium">{s.title}</h3>
-        <p className="text-gray-500 mt-2">{s.desc}</p>
-        <p className="mt-4 font-semibold">{s.price}</p>
-      </div>
-    ))}
-  </section>
+          <input
+            name="name"
+            placeholder="Full name"
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-white/20 placeholder-white/40"
+          />
 
-  {/* BOOKING */}
-  <section id="booking" className="px-6 py-16 bg-gray-50">
-    <div className="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-sm border">
-      <h2 className="text-2xl font-semibold mb-6">Book Your Detail</h2>
+          <input
+            name="phone"
+            placeholder="Phone number"
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-white/20 placeholder-white/40"
+          />
 
-      {!submitted ? (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input name="name" placeholder="Full Name" onChange={handleChange} required className="w-full p-3 border rounded-lg" />
-          <input name="phone" placeholder="Phone" onChange={handleChange} required className="w-full p-3 border rounded-lg" />
-          <input name="car" placeholder="Car (Make & Model)" onChange={handleChange} required className="w-full p-3 border rounded-lg" />
+          <input
+            name="car"
+            placeholder="Car (e.g. BMW 330d)"
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-white/20 placeholder-white/40"
+          />
 
-          <select name="service" onChange={handleChange} className="w-full p-3 border rounded-lg">
-            <option>Full Valet</option>
-            <option>Paint Correction</option>
-            <option>Ceramic Coating</option>
-          </select>
+          {/* Service buttons */}
+          <div className="grid grid-cols-2 gap-3 text-sm">
+            {["Full Valet", "Mini Valet", "Interior Detail", "Ceramic Coating"].map(
+              (s) => (
+                <button
+                  key={s}
+                  onClick={() => setForm({ ...form, service: s })}
+                  className={`py-3 rounded-2xl border transition ${
+                    form.service === s
+                      ? "bg-white text-black"
+                      : "bg-white/5 border-white/10 text-white/80"
+                  }`}
+                >
+                  {s}
+                </button>
+              )
+            )}
+          </div>
 
-          <input type="date" name="date" onChange={handleChange} required className="w-full p-3 border rounded-lg" />
-          <textarea name="message" placeholder="Notes" onChange={handleChange} className="w-full p-3 border rounded-lg" />
+          <input
+            type="date"
+            name="date"
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-white/20"
+          />
 
-          <button className="w-full bg-black text-white py-3 rounded-full font-medium hover:opacity-90">
-            Continue to WhatsApp
+          <textarea
+            name="message"
+            placeholder="Anything we should know?"
+            onChange={handleChange}
+            rows="3"
+            className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-white/20 placeholder-white/40"
+          />
+
+          <button
+            onClick={handleSubmit}
+            className="w-full py-3 rounded-2xl bg-white text-black font-medium hover:scale-[1.02] active:scale-[0.99] transition"
+          >
+            Send Booking via WhatsApp
           </button>
-        </form>
-      ) : (
-        <p className="text-green-600 font-medium">Opening WhatsApp...</p>
-      )}
+
+          <p className="text-center text-xs text-white/40">
+            Replies usually within 1 hour
+          </p>
+
+        </div>
+      </div>
     </div>
-  </section>
-
-  {/* FOOTER */}
-  <footer className="text-center text-gray-400 text-sm py-10">
-    © {new Date().getFullYear()} Elite Auto Detailing • Bolton • Manchester
-  </footer>
-</div>
-
-); }
+  );
+}
