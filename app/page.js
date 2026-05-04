@@ -50,12 +50,12 @@ Notes: ${form.message}`;
           </h1>
 
           <p className="text-white/60 mt-3 text-lg">
-            Premium mobile detailing • Stockport & surrounding areas
+            Premium mobile detailing • Bolton & surrounding areas
           </p>
 
           <div className="mt-6 inline-flex gap-2 text-sm text-white/70">
             <span className="px-3 py-1 rounded-full bg-white/10 border border-white/10">
-              Mobile Service
+              Collection/Delivery Service
             </span>
             <span className="px-3 py-1 rounded-full bg-white/10 border border-white/10">
               Fully Insured
