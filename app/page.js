@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 export default function Page() { const [form, setForm] = useState({ name: "", phone: "", car: "", service: "Full Valet", date: "", message: "", });
