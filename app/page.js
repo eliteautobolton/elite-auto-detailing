@@ -17,7 +17,7 @@ export default function Page() {
   };
 
   const handleSubmit = () => {
-    const msg = `NEW BOOKING:%0A
+    const msg = `NEW ELITE AUTO BOOKING:%0A
 Name: ${form.name}%0A
 Phone: ${form.phone}%0A
 Car: ${form.car}%0A
@@ -40,8 +40,7 @@ Notes: ${form.message}`;
         <div className="absolute bottom-[-200px] right-[-100px] w-[500px] h-[500px] bg-white/5 blur-[120px] rounded-full" />
       </div>
 
-      {/* Content */}
-      <div className="relative max-w-5xl mx-auto px-6 py-12">
+      <div className="relative max-w-6xl mx-auto px-6 py-12">
 
         {/* HERO */}
         <div className="text-center mb-10">
@@ -53,9 +52,10 @@ Notes: ${form.message}`;
             Premium Detailing • Bolton & surrounding areas
           </p>
 
-          <div className="mt-6 inline-flex gap-2 text-sm text-white/70">
+          {/* Trust badges */}
+          <div className="mt-6 flex flex-wrap justify-center gap-2 text-sm text-white/70">
             <span className="px-3 py-1 rounded-full bg-white/10 border border-white/10">
-              Collection/Delivery Service
+              Mobile / Collection Service
             </span>
             <span className="px-3 py-1 rounded-full bg-white/10 border border-white/10">
               Fully Insured
@@ -63,17 +63,25 @@ Notes: ${form.message}`;
             <span className="px-3 py-1 rounded-full bg-white/10 border border-white/10">
               5★ Finish Standard
             </span>
+            <span className="px-3 py-1 rounded-full bg-white/10 border border-white/10">
+              Limited Daily Slots
+            </span>
           </div>
+
+          {/* urgency */}
+          <p className="mt-4 text-sm text-white/50">
+            Bookings are taken on a first-come, first-served basis — limited availability daily
+          </p>
         </div>
 
         {/* GRID */}
         <div className="grid md:grid-cols-2 gap-10">
 
-          {/* LEFT: PRICING / POSITIONING */}
+          {/* LEFT - POSITIONING */}
           <div className="space-y-6">
 
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl">
-              <h2 className="text-xl font-semibold mb-4">Premium Services</h2>
+              <h2 className="text-xl font-semibold mb-4">Premium Service Pricing</h2>
 
               <div className="space-y-3 text-white/80">
                 <div className="flex justify-between">
@@ -91,29 +99,30 @@ Notes: ${form.message}`;
               </div>
 
               <p className="text-xs text-white/40 mt-4">
-                Final price depends on vehicle condition
+                Final price depends on vehicle size & condition
               </p>
             </div>
 
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
-              <h3 className="font-semibold mb-2">Why Elite Auto?</h3>
+              <h3 className="font-semibold mb-2">What We Actually Do</h3>
               <p className="text-white/60 text-sm leading-relaxed">
-                We don’t do cheap washes. Every detail is a full reset — restoring your
-                vehicle to a near factory-fresh finish using professional-grade products
-                and machine techniques.
+                We don’t offer cheap washes. Every detail is a full reset — deep interior
+                restoration, paint decontamination, machine refinement and finishing work
+                designed to bring the vehicle back as close to factory-fresh condition as possible.
               </p>
             </div>
 
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
-              <h3 className="font-semibold mb-2">Expectation</h3>
+              <h3 className="font-semibold mb-2">Important</h3>
               <p className="text-white/60 text-sm">
-                This is a premium service. Limited daily slots to maintain quality.
+                This is a premium service. If you're looking for quick £20–£30 washes,
+                this service is not for you.
               </p>
             </div>
 
           </div>
 
-          {/* RIGHT: FORM */}
+          {/* RIGHT - FORM */}
           <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl space-y-4">
 
             <input
@@ -137,7 +146,7 @@ Notes: ${form.message}`;
               className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-white/20"
             />
 
-            {/* Service selector */}
+            {/* service selection */}
             <div className="grid grid-cols-2 gap-3 text-sm">
               {["Full Valet", "Machine Polish", "Paint Correction", "Ceramic Coating"].map((s) => (
                 <button
@@ -146,7 +155,7 @@ Notes: ${form.message}`;
                   className={`py-3 rounded-2xl border transition ${
                     form.service === s
                       ? "bg-white text-black"
-                      : "bg-white/5 border-white/10 text-white/80"
+                      : "bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-white/20"
                   }`}
                 >
                   {s}
@@ -169,15 +178,16 @@ Notes: ${form.message}`;
               className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10"
             />
 
+            {/* CTA */}
             <button
               onClick={handleSubmit}
-              className="w-full py-3 rounded-2xl bg-white text-black font-medium hover:scale-[1.02] transition"
+              className="w-full py-4 rounded-2xl bg-white text-black font-semibold hover:scale-[1.02] active:scale-[0.99] transition"
             >
-              Request Booking via WhatsApp
+              Check Availability via WhatsApp
             </button>
 
             <p className="text-center text-xs text-white/40">
-              Response typically within 1 hour
+              Response usually within 1 hour • Limited daily slots
             </p>
 
           </div>
