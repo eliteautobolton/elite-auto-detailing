@@ -55,12 +55,25 @@ export default function Page() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden selection:bg-blue-500/30">
 
-      {/* Background glow */}
-      <div className="absolute inset-0">
-        <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[650px] h-[650px] bg-blue-500/10 blur-[180px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[-250px] right-[-120px] w-[550px] h-[550px] bg-blue-400/10 blur-[160px] rounded-full animate-pulse" />
+      {/* 🔵 PREMIUM BLUE AMBIENT BACKGROUND */}
+      <div className="absolute inset-0 overflow-hidden">
+
+        {/* main centre glow */}
+        <div className="absolute top-[-25%] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-blue-500/10 blur-[220px] rounded-full" />
+
+        {/* left drift */}
+        <div className="absolute top-[15%] left-[-25%] w-[750px] h-[750px] bg-blue-400/10 blur-[200px] rounded-full" />
+
+        {/* right drift */}
+        <div className="absolute bottom-[-35%] right-[-25%] w-[850px] h-[850px] bg-blue-600/10 blur-[240px] rounded-full" />
+
+        {/* subtle white highlight (wet glass feel) */}
+        <div className="absolute top-[40%] left-[55%] -translate-x-1/2 w-[500px] h-[500px] bg-white/5 blur-[180px] rounded-full" />
+
+        {/* dark gradient overlay for contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
       </div>
 
       <div className="relative max-w-6xl mx-auto px-6 py-14">
@@ -125,10 +138,6 @@ export default function Page() {
                 </div>
               </div>
 
-              <p className="text-xs text-white/40 mt-4">
-                Pricing varies depending on vehicle size and condition
-              </p>
-
               <p className="text-xs text-blue-300/60 mt-2">
                 Most bookings fall between £120–£180
               </p>
@@ -139,14 +148,6 @@ export default function Page() {
               <p className="text-white/60 text-sm leading-relaxed">
                 Every detail is a full reset — deep interior restoration, paint decontamination,
                 machine polishing and finishing work designed to restore a near factory-fresh condition.
-              </p>
-            </div>
-
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
-              <h3 className="font-semibold mb-2">Important</h3>
-              <p className="text-white/60 text-sm">
-                This is a premium detailing service focused on quality, precision and time.
-                Limited daily availability to maintain standards.
               </p>
             </div>
 
@@ -176,7 +177,7 @@ export default function Page() {
               className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-blue-500/30"
             />
 
-            {/* MULTI SERVICE SELECT */}
+            {/* MULTI SELECT */}
             <div className="grid grid-cols-2 gap-3 text-sm">
               {serviceOptions.map((s) => (
                 <button
